@@ -338,13 +338,17 @@ public class LCManager: NSObject, UIGestureRecognizerDelegate {
         circle.isUserInteractionEnabled = false
         menuButton.addSubview(circle)
         
-        let ellipsisImage = UIImageView(image: UIImage(systemName: "ellipsis",
-                                                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .medium)))
+        let ellipsisImage = UIImageView(
+            image: UIImage(
+                systemName: "ellipsis",
+                withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .medium)
+            )
+        )
         ellipsisImage.frame.size = circle.bounds.size
         ellipsisImage.contentMode = .center
         circle.addSubview(ellipsisImage)
         
-        menuButton.tintColor = UIColor(white: 1, alpha: 0.75)
+        menuButton.tintColor = UIColor(white: 1, alpha: 0.8)
         menuButton.menu = makeMenu()
         menuButton.showsMenuAsPrimaryAction = true
         consoleView.addSubview(menuButton)
@@ -490,8 +494,14 @@ public class LCManager: NSObject, UIGestureRecognizerDelegate {
         }
     }
     
+    // This menu is included in the console's main menu.
+    public var menu: UIMenuElement? = nil {
+        didSet {
+            menuButton.menu = makeMenu()
+        }
+    }
+    
     var grabberMode: Bool = false {
-        
         didSet {
             guard oldValue != grabberMode else { return }
             
@@ -894,9 +904,9 @@ public class LCManager: NSObject, UIGestureRecognizerDelegate {
                 }()
                 
                 if keys.isEmpty {
-                    actions.append(UIAction(title: "No Entries",
-                                            image: nil, attributes: .disabled, handler: { _ in }
-                                           ))
+                    actions.append(
+                        UIAction(title: "No Entries", attributes: .disabled, handler: { _ in })
+                    )
                 } else {
                     for key in keys.sorted(by: { $0.lowercased() < $1.lowercased() }) {
                         
@@ -1069,7 +1079,12 @@ public class LCManager: NSObject, UIGestureRecognizerDelegate {
         } else {
             menuContent.append(UIMenu(title: "", options: .displayInline, children: [resize]))
         }
+        
         menuContent.append(debugMenu)
+        if let customMenu = menu {
+            menuContent.append(customMenu)
+        }
+        
         if consoleTextView.text != "" {
             menuContent.append(UIMenu(title: "", options: .displayInline, children: [clear]))
         }
