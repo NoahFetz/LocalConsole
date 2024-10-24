@@ -1392,14 +1392,7 @@ class LumaView: UIView {
                 case white = 4
             }
             
-            enum BackgroundLuminance: Int {
-                case unknown = 0
-                case dark = 1
-                case light = 2
-            }
-            
             pillView.setValue(2, forKey: "style")
-            pillView.setValue(1, forKey: "background" + "Luminance")
             pillView.perform(NSSelectorFromString("_" + "update" + "Style"))
             
             addSubview(pillView)
