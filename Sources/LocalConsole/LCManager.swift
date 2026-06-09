@@ -875,7 +875,7 @@ public class LCManager: NSObject, UIGestureRecognizerDelegate {
         // If device is phone in landscape, disable resize controller.
         if UIDevice.current.userInterfaceIdiom == .phone && consoleViewController.view.frame.width > consoleViewController.view.frame.height {
             resize.attributes = .disabled
-            if #available(iOS 15, *) {
+            if #available(iOS 16, *) {
                 resize.subtitle = "Portrait Orientation Only"
             }
         }
@@ -888,7 +888,7 @@ public class LCManager: NSObject, UIGestureRecognizerDelegate {
         
         var debugActions: [UIMenuElement] = []
         
-        if #available(iOS 15, *) {
+        if #available(iOS 16, *) {
             frameSymbol = "square.inset.filled"
             
             let deferredUserDefaultsList = UIDeferredMenuElement.uncached { completion in
